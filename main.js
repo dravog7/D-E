@@ -1,7 +1,3 @@
-//make context menu items encrypt,decrypt
-//define encrypt(key,text) and decrypt(key,text) webCrypto API
-
-//define encryptAES
 function encryptAES(opt,tab)
 {
     chrome.tabs.sendMessage(tab.id,{"id":"encrypt"},(reply)=>{
@@ -23,9 +19,9 @@ encrypt={
 decrypt={
     "title":"decrypt!",
     "onclick":decryptAES,
-    "contexts":["editable"]
+    "contexts":["editable"] //TODO: add support for selection contexts
     };
 
 //make menu items
-chrome.contextMenus.create(encrypt);
-chrome.contextMenus.create(decrypt);
+chrome.contextMenus.create(encrypt);//for encryption
+chrome.contextMenus.create(decrypt);//for decryption
