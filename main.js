@@ -5,14 +5,14 @@
 function encryptAES(opt,tab)
 {
     chrome.tabs.sendMessage(tab.id,{"id":"encrypt"},(reply)=>{
-        alert("done!");
+        return;
     });
 }
 
 function decryptAES(opt,tab)
 {
     chrome.tabs.sendMessage(tab.id,{"id":"decrypt"},(reply)=>{
-        alert("done!");
+        return;
     });
 }
 encrypt={
