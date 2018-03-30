@@ -3,8 +3,18 @@
     "version": "0.0",
     "description": "Encrypt any form of text! with a password",
     "manifest_version": 2,
-    "permissions": ["contextMenus","storage"],
+    "permissions": ["contextMenus",
+        "storage",
+        "http://*/*",
+        "https://*/*",
+        "tabs"],
     "options_page":"options.html",
+    "content_scripts": [
+        {
+          "matches": ["http://*/*","https://*/*"],
+          "js": ["content.js"]
+        }
+    ],
     "background":
     {
     "scripts": ["main.js"],
