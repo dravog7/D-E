@@ -2,7 +2,19 @@ function digest(key,callback)
 {
     crypto.subtle.digest({
         "name":"SHA-256"
-    },key).then(callback);
+    },key).then((hashed)=>
+    {
+        //make key for AES-GCM
+        crypto.subtle.importKey(
+            "raw",
+            hashed,
+            {
+                name:"AES-GCM"
+            },
+            false,
+            ["encrypt","decrypt"]
+        ).then(callback);
+    });
 }
 let targetc=null;
 let keys="";
@@ -17,19 +29,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if(request.id=="encrypt")
     {
         keys=prompt("Enter password:");
+        if(keys=="")
+            return;
         keys=new TextEncoder().encode(keys).buffer;
-        digest(keys,(hashed)=>
-        {
-            //make key for AES-GCM
-            crypto.subtle.importKey(
-                "raw",
-                hashed,
-                {
-                    name:"AES-GCM"
-                },
-                false,
-                ["encrypt","decrypt"]
-            ).then((key)=>
+        digest(keys,(key)=>
             {
                 crypto.subtle.encrypt(
                     {
@@ -43,24 +46,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                     targetc.value=btoa(new Uint8Array(encoded).toString());
                 })
             })
-        });
     }
     if(request.id=="decrypt")
     {
         keys=prompt("Enter password:");
+        if(keys=="")
+            return;
         keys=new TextEncoder().encode(keys).buffer;
-        digest(keys,(hashed)=>
-        {
-            //make key for AES-GCM
-            crypto.subtle.importKey(
-                "raw",
-                hashed,
-                {
-                    name:"AES-GCM"
-                },
-                false,
-                ["encrypt","decrypt"]
-            ).then((key)=>
+        digest(keys,(key)=>
             {
                 crypto.subtle.decrypt(
                     {
@@ -74,6 +67,5 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                     targetc.value=new TextDecoder().decode(encoded);
                 })
             })
-        });
     }
 });
