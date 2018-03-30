@@ -5,7 +5,7 @@ Chrome extension built for encrypting/decrypting data
 ## Dependencies
 
 - no external dependencies
-- requires chrome version >=38 (to use webCrypto API)
+- requires chrome version >=38 (to use **webCrypto API**)
 
 ## usage
 
