@@ -9,6 +9,6 @@ Chrome extension built for encrypting/decrypting data
 
 ## usage
 
--download and install the web extension .crx [here](about:blank)
--click on the textarea where you want to encrypt or decrypt
--enter password.
+- download and install the app by choosing this folder using "load unpacked" from chrome extensions option
+- click on the textarea where you want to encrypt or decrypt
+- enter password.
