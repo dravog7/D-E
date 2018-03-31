@@ -1,3 +1,13 @@
+function popup()
+//generate a popup div for the data
+{
+    return;
+}
+function pass()
+//an html div to input password
+{
+    return;
+}
 function digest(key,callback) 
 //converts ArrayBuffer of any size to 256 bit by hashing SHA256
 //generates the cryptoKey object using the 256 bit hashed
@@ -72,8 +82,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)
                 ).then((encoded)=>
                 {
                     targetc.val(btoa(new Uint8Array(encoded).toString()));//convert the result to array and to base64
-                })
-            })
+                }).catch((err)=>{console.error(err);});
+            });
     }
     if(request.id=="decrypt")
     {
@@ -93,7 +103,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)
                 ).then((encoded)=>
                 {
                     targetc.val(new TextDecoder().decode(encoded)); //decode the output
-                })
-            })
+                }).catch((error)=>
+                {
+                    console.error(error);
+                });
+            });
     }
 });
